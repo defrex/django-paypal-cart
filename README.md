@@ -7,7 +7,9 @@ html snippets (with no <html> and such).
 ### setup
 1. Add the cart app to INSTALLED_APPS in your settings.py.
 2. Add cart to your urls
+
     (r'^cart/', include('cart.urls')),
+    
 3. Run manage.py syncdb
 4. in settings.py set PAYPAL_URL and PAYPAL_EMAIL. PAYPAL_URL is where the
 paypal form is submit, and PAYPAL_EMAIL is for the account that will receive
@@ -57,6 +59,7 @@ on that.
 * Because return is a reserved word in python, and because PayPal wants one of
 the most important fields to be named return, you have to do a little work
 in JavaScript before you submit the form. In jQuery:
+
     $('input[@name="return_url"]').attr('name', 'return');
 
 ### Instant Payment Notification
