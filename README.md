@@ -10,12 +10,12 @@ html snippets (with no <html> and such).
     (r'^cart/', include('cart.urls')),
 3. Run manage.py syncdb
 4. in settings.py set PAYPAL_URL and PAYPAL_EMAIL. PAYPAL_URL is where the
-paypal form is sumit, and PAYPAL_EMAIL is for the account that will recieve
+paypal form is submit, and PAYPAL_EMAIL is for the account that will receive
 the money.
 
 ### Add to cart
 There is no real UI included in this app. You add items to the cart by creating
-a CartItem object. CartItems contain a GenericForeignKey, a user, and ammount, 
+a CartItem object. CartItems contain a GenericForeignKey, a user, and amount, 
 and an "other" field for you to store whatever. The CartItemManager gives you 
 the handy add_to_cart method. like so: add_to_cart(object, user, amount, other)
 
@@ -61,7 +61,7 @@ in JavaScript before you submit the form. In jQuery:
 
 ### Instant Payment Notification
 PayPal calls it IPN. This is basically PayPal's way of letting you know when a 
-payment has gone through. django-paypal-cart conviniently provides a signal
+payment has gone through. django-paypal-cart conveniently provides a signal
 for you to attach to in order to handle this.
     from cart.signals import pp_ipn
     def ipn_handler(sender, **kwargs):
