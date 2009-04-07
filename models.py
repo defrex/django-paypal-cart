@@ -28,4 +28,8 @@ class CartItem(models.Model):
     other = models.CharField(max_length=255, blank=True, null=True)
 
     objects = CartItemManager()
-
+    
+    def __unicode__(self):
+        return 'user: %(user)s, object: %(obj)s, amount: %(amt)i'\
+                    % {'user': self.user, 'obj': self.object, 'amt': self.amount}
+    

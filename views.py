@@ -6,19 +6,25 @@ from django.template import RequestContext
 from django.conf import settings
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
+from django.contrib.contenttypes.models import ContentType
 from cart.models import CartItem
 from cart.forms import CheckoutForm
 from cart.signals import pp_ipn
 
 @login_required
-def checkout(request, template_name='cart/checkout.html'):
+def checkout(request, template_name='cart/checkout.html', pp_urls=None, model=None):
     '''
     Renders a form ready to be submit to paypal. Passes PAYPAL_URL, which is
     taken from settings. Also passes total, which is the total amount
     of all the cart items
     '''
     items = CartItem.objects.filter(user=request.user)
-    form = CheckoutForm(items)
+    if model:
+        print 'model:', model
+        ct = ContentType.objects.get_for_model(model)
+        items = items.filter(content_type=ct)
+    print items
+    form = CheckoutForm(items, pp_urls)
     total = 0
     for item in items:
         total += item.amount
