@@ -20,10 +20,8 @@ def checkout(request, template_name='cart/checkout.html', pp_urls=None, model=No
     '''
     items = CartItem.objects.filter(user=request.user)
     if model:
-        print 'model:', model
         ct = ContentType.objects.get_for_model(model)
         items = items.filter(content_type=ct)
-    print items
     form = CheckoutForm(items, pp_urls)
     total = 0
     for item in items:
@@ -45,11 +43,11 @@ def remove_from_cart(request, itemid):
     items = CartItem.objects.filter(user=request.user)
     total = 0
     for item in items:
-        total += item.object.amount
+        total += item.amount
     return HttpResponse(simplejson.dumps({
             "status":"removed_from_cart",
-            "total": total,
-            }))
+            "total": '%d' % (total),
+            }), mimetype='application/json')
 
 def payment_successful(request):
     '''
