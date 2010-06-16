@@ -6,7 +6,7 @@ class PayPalForm(forms.Form):
     business = forms.CharField(widget=forms.HiddenInput(), initial=settings.PAYPAL_RECEIVER_EMAIL)
 
     charset = forms.CharField(widget=forms.HiddenInput(), initial="utf-8")
-    currency_code = forms.CharField(widget=forms.HiddenInput(), initial="CAD")
+    currency_code = forms.CharField(widget=forms.HiddenInput(), initial=settings.PAYPAL_CURRENCY_CODE)
     no_shipping = forms.CharField(widget=forms.HiddenInput(), initial="1")
 
     def __init__(self, pp_urls, *args, **kwargs):
